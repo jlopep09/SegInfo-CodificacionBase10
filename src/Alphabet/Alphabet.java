@@ -1,9 +1,12 @@
+package Alphabet;
+
 import java.util.ArrayList;
 
 public class Alphabet {
     private ArrayList<AlphaElem> alphabet;
 
     public Alphabet(int elementNum){
+        alphabet = new ArrayList<>();
         createVoidAlphaElements(elementNum);
     }
     public void setAlphabetElements(ArrayList<String> elements){

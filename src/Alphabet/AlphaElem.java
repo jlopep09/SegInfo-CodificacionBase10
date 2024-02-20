@@ -1,3 +1,5 @@
+package Alphabet;
+
 public class AlphaElem {
     private String _element;
     private long _probFracTop, _probFracBot;
