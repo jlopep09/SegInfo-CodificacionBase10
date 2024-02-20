@@ -1,8 +1,10 @@
 package utilities;
 
-public class fraction {
+import javax.sound.midi.Soundbank;
+
+public class Fraction {
     private long _fracTop, _fracBot;
-    public fraction(long fracTop,long fracBot){
+    public Fraction(long fracTop,long fracBot){
         _fracTop = fracTop;
         _fracBot = fracBot;
     }
@@ -20,6 +22,10 @@ public class fraction {
         _fracTop = fracTop;
     }
     public void setBotValue(long fracBot){
+        if(fracBot == 0 ){
+            System.out.println("0 is not a valid fraction bottom number");
+            throw new IllegalArgumentException("0 is not a valid fraction bottom number");
+        }
         _fracBot = fracBot;
     }
 }
