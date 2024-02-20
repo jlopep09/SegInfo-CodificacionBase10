@@ -53,4 +53,10 @@ public class Alphabet {
             alphabet.add(new AlphaElem());
         }
     }
+    public int size(){
+        return alphabet.size();
+    }
+    public AlphaElem getElem(int index){
+        return alphabet.get(index);
+    }
 }
