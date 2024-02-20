@@ -26,4 +26,17 @@ public class ArithCoder {
             hightRanges.add(hightTemp);
         }
     }
+    public String toString(){
+        StringBuffer _sb = new StringBuffer();
+        _sb.append("---Content Table---\n");
+        _sb.append(" Element | Prob | Range \n");
+        for(int i = 0; i < _alphabet.size(); i++){
+            _sb.append(_alphabet.getElem(i).getElement() + " | " +
+                    _alphabet.getElem(i).getFracTop() + "/" +_alphabet.getElem(i).getFracBot() + " | " +
+                    "["+lowRanges.get(i).getTopValue() + "/" +lowRanges.get(i).getBotValue() +","+
+                    hightRanges.get(i).getTopValue() + "/" +hightRanges.get(i).getBotValue()+") \n");
+        }
+        _sb.append("----------------\n");
+        return _sb.toString();
+    }
 }

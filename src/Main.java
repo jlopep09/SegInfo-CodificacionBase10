@@ -24,6 +24,7 @@ public class Main {
         alphabet.setAlphabetProportion(proportionList);
 
         ArithCoder arithCoder = new ArithCoder(alphabet);
+        System.out.println(arithCoder.toString());
 
 
     }
