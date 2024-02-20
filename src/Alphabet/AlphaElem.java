@@ -1,17 +1,17 @@
 package Alphabet;
 
+import utilities.Fraction;
+
 public class AlphaElem {
     private String _element;
-    private long _probFracTop, _probFracBot;
+    private Fraction _prob;
     public AlphaElem(){
         this._element = "";
-        this._probFracTop = 0;
-        this._probFracBot = 0;
+        _prob = new Fraction(0,1);
     }
     public AlphaElem(String element, long _probFracTop, long _probFracBot){
         this._element = element;
-        this._probFracTop = _probFracTop;
-        this._probFracBot = _probFracBot;
+        _prob = new Fraction(_probFracTop,_probFracBot);
     }
     public String getElement(){
         return _element;
@@ -20,17 +20,20 @@ public class AlphaElem {
         this._element = element;
     }
     public void setProb(long _probFracTop, long _probFracBot){
-        this._probFracTop = _probFracTop;
-        this._probFracBot = _probFracBot;
+        _prob.setTopValue(_probFracTop);
+        _prob.setBotValue(_probFracBot);
+    }
+    public void setProb(Fraction frac){
+        _prob = frac;
     }
     public double getProb(){
-        return _probFracTop/_probFracBot;
+        return _prob.getValue();
     }
     public long getFracTop(){
-        return _probFracTop;
+        return _prob.getTopValue();
     }
     public long getFracBot(){
-        return _probFracBot;
+        return _prob.getBotValue();
     }
 
 }
