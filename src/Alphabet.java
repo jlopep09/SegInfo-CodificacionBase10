@@ -15,13 +15,13 @@ public class Alphabet {
             alphabet.get(i).setElement(elements.get(i));
         }
     }
-    public void setAlphabetProbs(ArrayList<Float> elements){
-        if(elements.size() != alphabet.size()){
+    public void setAlphabetProbs(ArrayList<Long> fracTop, ArrayList<Long> fracBot){
+        if(fracTop.size() != alphabet.size() || fracBot.size() != alphabet.size()){
             System.out.printf("elements prob list and alphabet size must be the same");
             throw new IllegalArgumentException("alphabet and element probs list sizes not match");
         }
         for(int i = 0; i < alphabet.size(); i++){
-            alphabet.get(i).setProb(elements.get(i));
+            alphabet.get(i).setProb(fracTop.get(i), fracBot.get(i));
         }
     }
     private void createVoidAlphaElements(int elementNum){
