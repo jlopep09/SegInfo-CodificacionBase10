@@ -1,4 +1,5 @@
 import Alphabet.Alphabet;
+import Encoder.ArithCoder;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Main {
         alphabet.setAlphabetElements(elements);
         alphabet.setAlphabetProportion(proportionList);
 
-
+        ArithCoder arithCoder = new ArithCoder(alphabet);
 
 
     }
