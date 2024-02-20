@@ -15,7 +15,28 @@ public class Alphabet {
             alphabet.get(i).setElement(elements.get(i));
         }
     }
-    public void setAlphabetProbs(ArrayList<Long> fracTop, ArrayList<Long> fracBot){
+    public void setAlphabetProportion(ArrayList<Long> frecList){
+        if(frecList.size() != alphabet.size()){
+            System.out.printf("elements prob list and alphabet size must be the same");
+            throw new IllegalArgumentException("alphabet and element probs list sizes not match");
+        }
+        long counter = 0;
+        for(int i = 0; i < alphabet.size(); i++){
+            counter += frecList.get(i);
+        }
+        setAlphabetProbs(frecList, counter);
+
+    }
+    private void setAlphabetProbs(ArrayList<Long> fracTop, long botValue){
+        if(fracTop.size() != alphabet.size()){
+            System.out.printf("elements prob list and alphabet size must be the same");
+            throw new IllegalArgumentException("alphabet and element probs list sizes not match");
+        }
+        for(int i = 0; i < alphabet.size(); i++){
+            alphabet.get(i).setProb(fracTop.get(i), botValue);
+        }
+    }
+    private void setAlphabetProbs(ArrayList<Long> fracTop, ArrayList<Long> fracBot){
         if(fracTop.size() != alphabet.size() || fracBot.size() != alphabet.size()){
             System.out.printf("elements prob list and alphabet size must be the same");
             throw new IllegalArgumentException("alphabet and element probs list sizes not match");
