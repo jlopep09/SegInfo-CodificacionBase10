@@ -26,6 +26,13 @@ public class Main {
         ArithCoder arithCoder = new ArithCoder(alphabet);
         System.out.println(arithCoder.toString());
 
+        System.out.println(arithCoder.encode("A"));
+        System.out.println(arithCoder.encode("A"));
+        System.out.println(arithCoder.encode("AB"));
+        System.out.println(arithCoder.encode("AB"));
+        System.out.println(arithCoder.encode("ABC"));
+        System.out.println(arithCoder.encode("ABC"));
+
 
     }
 }
