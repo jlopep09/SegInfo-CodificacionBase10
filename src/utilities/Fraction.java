@@ -9,7 +9,7 @@ public class Fraction {
         _fracBot = fracBot;
     }
     public double getValue(){
-        return _fracTop/_fracBot;
+        return (double) _fracTop /_fracBot;
     }
     //--------------------------GET/SET------------------------------
     public long getTopValue(){
@@ -27,5 +27,14 @@ public class Fraction {
             throw new IllegalArgumentException("0 is not a valid fraction bottom number");
         }
         _fracBot = fracBot;
+    }
+    public Fraction diference(Fraction second){ //todo hacer caso base distinta
+        return new Fraction(this._fracTop-second._fracTop, this._fracBot);
+    }
+    public Fraction multiply(Fraction second){
+        return new Fraction(this._fracTop*second._fracTop, this._fracBot* second._fracBot);
+    }
+    public Fraction addition(Fraction second){//todo hacer caso base distinta
+        return new Fraction(this._fracTop+second._fracTop, this._fracBot);
     }
 }
