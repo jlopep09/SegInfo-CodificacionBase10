@@ -26,7 +26,7 @@ public class ArithCoder {
         //GET INITIAL RANGES FOR CHARACTER 0
         String actualElem = msg.charAt(0)+"";
         Fraction Li = new Fraction(0,1);
-        Fraction Hi = new Fraction(0,1);
+        Fraction Hi = new Fraction(1,1);
         for(int i = 0; i<_alphabet.size(); i++){
             if(_alphabet.getElem(i).getElement().equals(actualElem)){
                 Li = lowRanges.get(i);
@@ -35,26 +35,38 @@ public class ArithCoder {
         }
         //CHECK IF LENGTH == 1
         if(msg.length()==1){
-            //RANDOM VALUE FOR THIS 1 CHAR MSG FROM THE INITIAL RANGE
-            Random random = new Random();
-            double result = random.nextDouble(Hi.getValue()-Li.getValue())+Li.getValue();
+            // VALUE FOR THIS 1 CHAR MSG FROM THE INITIAL RANGE
+
+            double result = getCodedValue(Li, Hi);
             return result;
         }
         //UPDATE RANGES FOR MSG LENGTH
         for(int i = 1; i<msg.length();i++){
             actualElem = msg.charAt(i)+"";
             for(int j = 0; j<_alphabet.size(); j++){
-                if(_alphabet.getElem(i).getElement().equals(actualElem)){
+                if(_alphabet.getElem(j).getElement().equals(actualElem)){
+                    //System.out.println("Li antiguo: "+Li.toString()+" Hi antiguo: "+Hi.toString());
                     Fraction distance = Hi.diference(Li);
-                    Li = Li.addition(distance.multiply(lowRanges.get(i)));
-                    Hi = Hi.addition(distance.multiply(hightRanges.get(i)));
+                    //System.out.println("dist"+ Hi.addition(new Fraction(8,49)).toString());
+                    Hi = Li.addition(distance.multiply(hightRanges.get(j)));
+                    Li = Li.addition(distance.multiply(lowRanges.get(j)));
+                    //System.out.println("Li actualizado: "+Li.toString()+" Hi actualizado: "+Hi.toString());
                 }
             }
         }
-        //RANDOM VALUE FOR THIS MSG FROM THE RESULT RANGE
-        Random random = new Random();
-        double result = random.nextDouble(Hi.getValue()-Li.getValue())+Li.getValue();
+        // VALUE FOR THIS MSG FROM THE RESULT RANGE
+
+        double result = getCodedValue(Li, Hi);
         return result;
+    }
+    private double getCodedValue(Fraction low, Fraction high){
+        double result = 0;
+        String Low = low.getValue()+"";
+        String High = high.getValue()+"";
+        for(int i = 0; i<Low.length();i++){
+            //todo
+        }
+        return Double.parseDouble(Low);
     }
     private boolean checkValidMsg(String msg){
         boolean valid = true;
