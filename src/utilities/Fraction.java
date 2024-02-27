@@ -1,7 +1,5 @@
 package utilities;
 
-import javax.sound.midi.Soundbank;
-
 public class Fraction {
     private long _fracTop, _fracBot;
     public Fraction(long fracTop,long fracBot){
@@ -28,13 +26,41 @@ public class Fraction {
         }
         _fracBot = fracBot;
     }
-    public Fraction diference(Fraction second){ //todo hacer caso base distinta
-        return new Fraction(this._fracTop-second._fracTop, this._fracBot);
-    }
     public Fraction multiply(Fraction second){
-        return new Fraction(this._fracTop*second._fracTop, this._fracBot* second._fracBot);
+        Fraction newFract = new Fraction(this._fracTop*second._fracTop, this._fracBot* second._fracBot);
+        newFract.simplify();
+        return newFract;
     }
-    public Fraction addition(Fraction second){//todo hacer caso base distinta
-        return new Fraction(this._fracTop+second._fracTop, this._fracBot);
+    public Fraction diference(Fraction second) {
+        long commonDenominator = this._fracBot * second._fracBot;
+        long newTop = (this._fracTop * second._fracBot) - (second._fracTop * this._fracBot);
+
+        Fraction newFract = new Fraction(newTop, commonDenominator);
+        newFract.simplify();
+        return newFract;
     }
+
+    public Fraction addition(Fraction second) {
+        long commonDenominator = this._fracBot * second._fracBot;
+        long newTop = (this._fracTop * second._fracBot) + (second._fracTop * this._fracBot);
+        Fraction newFract = new Fraction(newTop, commonDenominator);
+        newFract.simplify();
+        return newFract;
+    }
+    public void simplify() {
+        long gcd = gcd(_fracTop, _fracBot);
+        _fracTop /= gcd;
+        _fracBot /= gcd;
+    }
+
+    private long gcd(long a, long b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+    public String toString(){
+        return "["+this._fracTop+"/"+this._fracBot+"]";
+    }
+
 }
