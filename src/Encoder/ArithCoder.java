@@ -63,8 +63,17 @@ public class ArithCoder {
         double result = 0;
         String Low = low.getValue()+"";
         String High = high.getValue()+"";
-        for(int i = 0; i<Low.length();i++){
-            //todo
+        for(int i = 2; i<Low.length();i++){
+            if(Integer.parseInt(Low.charAt(i)+"")<Integer.parseInt(High.charAt(i)+"")){
+                if(High.length()>i+1){
+                    High = High.substring(0,i+1);
+                    return Double.parseDouble(High);
+                }else{
+                    //todo comprobar este fragmento
+                    Low = Low.substring(0,i+1);
+                    return Double.parseDouble(Low);
+                }
+            }
         }
         return Double.parseDouble(Low);
     }

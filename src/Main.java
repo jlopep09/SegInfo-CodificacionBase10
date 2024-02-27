@@ -9,7 +9,7 @@ public class Main {
 
         System.out.println("---- Arithmetic coding system base 10 ----");
 
-        ejemplo2();
+        ejemplo3();
 
 
 
@@ -78,5 +78,38 @@ public class Main {
         System.out.println(arithCoder.toString());
 
         System.out.println(arithCoder.encode("ASA"));
+    }
+    private static void ejemplo3(){
+
+        //creamos array de elementos y probabilidades relacionadas por su posicion en el arraylist
+        ArrayList<String> elements = new ArrayList<>();
+        ArrayList<Long> proportionList = new ArrayList<>();
+
+        //Añadimos los distintos elementos deseados a esas listas
+        elements.add("E");
+        proportionList.add((long)14);
+        elements.add("A");
+        proportionList.add((long)13);
+        elements.add("O");
+        proportionList.add((long)9);
+        elements.add("S");
+        proportionList.add((long)8);
+        elements.add("R");
+        proportionList.add((long)8);
+        elements.add("N");
+        proportionList.add((long)7);
+        elements.add("I");
+        proportionList.add((long)6);
+
+        //creamos el alphabet para esa lista de elementos y probabilidades
+        Alphabet alphabet = new Alphabet(7);
+        alphabet.setAlphabetElements(elements);
+        alphabet.setAlphabetProportion(proportionList);
+
+        //creamos arithCoder, el constructor crea automaticamente las cotas iniciales
+        ArithCoder arithCoder = new ArithCoder(alphabet);
+        System.out.println(arithCoder.toString());
+
+        System.out.println(arithCoder.encode("EA"));
     }
 }
