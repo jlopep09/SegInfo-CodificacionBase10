@@ -1,7 +1,9 @@
 import Alphabet.Alphabet;
 import Encoder.ArithCoder;
+import Vista.MainWindow;
 import utilities.Fraction;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -9,7 +11,8 @@ public class Main {
 
         System.out.println("---- Arithmetic coding system base 10 ----");
 
-        ejemplo3();
+        //ejemplo3();
+        MainWindow mainWindow = new MainWindow();
 
 
 

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vista.MainWindow">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="500"/>
+    </constraints>
+    <properties>
+      <maximumSize width="500" height="500"/>
+      <minimumSize width="500" height="500"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="a1af9" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints border-constraint="North"/>
+        <properties>
+          <background color="-12828863"/>
+          <maximumSize width="500" height="500"/>
+          <minimumSize width="500" height="80"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="cd873" class="javax.swing.JLabel">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
+            <properties>
+              <font name="Verdana" size="36" style="1"/>
+              <foreground color="-5394509"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="80"/>
+              <minimumSize width="500" height="80"/>
+              <preferredSize width="500" height="80"/>
+              <text value="ArithCoder"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="2ffc" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="f833" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="Welcome to ArithCoder System"/>
+            </properties>
+          </component>
+          <component id="3bb82" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <maximumSize width="500" height="32767"/>
+              <minimumSize width="500" height="1"/>
+              <preferredSize width="500" height="4"/>
+            </properties>
+          </component>
+          <component id="903e4" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="Follow the steps please:"/>
+            </properties>
+          </component>
+          <component id="4d16f" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <maximumSize width="500" height="32767"/>
+              <minimumSize width="500" height="1"/>
+              <preferredSize width="500" height="4"/>
+            </properties>
+          </component>
+          <component id="730ab" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="1. Set up the alphabet"/>
+            </properties>
+          </component>
+          <component id="e2dfd" class="javax.swing.JTextField" binding="elementInput">
+            <constraints/>
+            <properties>
+              <maximumSize width="480" height="30"/>
+              <minimumSize width="480" height="30"/>
+              <preferredSize width="480" height="30"/>
+              <text value=""/>
+              <toolTipText value="Example: [ABCD]"/>
+            </properties>
+          </component>
+          <component id="fee43" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="2. Set the probabily of each element is they are not equally probable"/>
+            </properties>
+          </component>
+          <component id="3f5cb" class="javax.swing.JTextField" binding="probInput">
+            <constraints/>
+            <properties>
+              <maximumSize width="480" height="30"/>
+              <minimumSize width="480" height="30"/>
+              <preferredSize width="480" height="30"/>
+              <text value=""/>
+              <toolTipText value="Example: [1 4 7 2]"/>
+            </properties>
+          </component>
+          <component id="81570" class="javax.swing.JSeparator">
+            <constraints/>
+            <properties>
+              <maximumSize width="500" height="32767"/>
+              <minimumSize width="500" height="1"/>
+              <preferredSize width="500" height="4"/>
+            </properties>
+          </component>
+          <component id="5f0b" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="3. Select Mode"/>
+            </properties>
+          </component>
+          <component id="793d4" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Encode"/>
+            </properties>
+          </component>
+          <component id="2a1ae" class="javax.swing.JButton" binding="decodeButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Decode"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="29809" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties>
+          <maximumSize width="500" height="20"/>
+          <minimumSize width="500" height="20"/>
+          <preferredSize width="500" height="20"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="62e84" class="javax.swing.JLabel">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
+            <properties>
+              <horizontalAlignment value="11"/>
+              <horizontalTextPosition value="0"/>
+              <text value="V 0.1"/>
+              <verticalTextPosition value="0"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
