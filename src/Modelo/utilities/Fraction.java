@@ -1,4 +1,4 @@
-package utilities;
+package Modelo.utilities;
 
 public class Fraction {
     private long _fracTop, _fracBot;

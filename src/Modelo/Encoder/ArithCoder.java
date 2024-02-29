@@ -1,7 +1,7 @@
-package Encoder;
+package Modelo.Encoder;
 
-import Alphabet.Alphabet;
-import utilities.Fraction;
+import Modelo.Alphabet.Alphabet;
+import Modelo.utilities.Fraction;
 
 import java.util.ArrayList;
 

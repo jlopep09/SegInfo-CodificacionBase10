@@ -1,4 +1,4 @@
-package Alphabet;
+package Modelo.Alphabet;
 
 import java.util.ArrayList;
 

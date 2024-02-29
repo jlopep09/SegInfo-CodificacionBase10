@@ -1,6 +1,6 @@
-package Alphabet;
+package Modelo.Alphabet;
 
-import utilities.Fraction;
+import Modelo.utilities.Fraction;
 
 public class AlphaElem {
     private String _element;
