@@ -6,3 +6,5 @@ using arithmetic coding in base 10, dividing the process into two main steps:
 
  1- Assigning the message m to a sub-interval I contained between [0, 1).
  2- Providing the shortest decimal representation of a number within interval I.
+ 
+Take into account that im using Oracle OpenJDK 21.0.1 to run this project.
