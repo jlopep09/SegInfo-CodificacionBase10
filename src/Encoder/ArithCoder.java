@@ -4,8 +4,6 @@ import Alphabet.Alphabet;
 import utilities.Fraction;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 
 public class ArithCoder {
     private Alphabet _alphabet;

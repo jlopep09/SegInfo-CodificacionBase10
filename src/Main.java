@@ -9,7 +9,7 @@ public class Main {
 
         System.out.println("---- Arithmetic coding system base 10 ----");
 
-        ejemplo3();
+        ejemplo1();
 
 
 
