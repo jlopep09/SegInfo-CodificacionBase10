@@ -9,7 +9,7 @@ public class Main {
 
         System.out.println("---- Arithmetic coding system base 10 ----");
 
-        ejemplo1();
+        ejemplo3();
 
 
 
@@ -111,5 +111,6 @@ public class Main {
         System.out.println(arithCoder.toString());
 
         System.out.println(arithCoder.encode("EA"));
+        System.out.println(arithCoder.decode(0.85, 2));
     }
 }

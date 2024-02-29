@@ -57,6 +57,36 @@ public class ArithCoder {
         double result = getCodedValue(Li, Hi);
         return result;
     }
+    public String decode(double code, int msgLength){ //todo sustituir .getValues por operaciones con fracciones
+        if(msgLength<1){
+            return "msg with length 0 or negative cant have a decoded value";
+        }
+        //find the index of the first decode msg character to get correct interval values from the range lists
+        int index = 0;
+        for(int i = 0; i<lowRanges.size();i++){
+            if(code>lowRanges.get(i).getValue() && code < hightRanges.get(i).getValue()){
+                index = i;
+                break;
+            }
+        }
+        //get first string value
+        StringBuffer result = new StringBuffer();
+        result.append(_alphabet.getElem(index).getElement());
+        //get the complete decoded string
+        double tempCodeVal = code;
+        for(int i = 1; i< msgLength; i++){
+            tempCodeVal = (tempCodeVal-lowRanges.get(index).getValue())/(hightRanges.get(index).getValue()-lowRanges.get(index).getValue());
+            int tempIndex = 0;
+            for(int j = 0; j<lowRanges.size();j++){
+                if(tempCodeVal>lowRanges.get(j).getValue() && tempCodeVal < hightRanges.get(j).getValue()){
+                    tempIndex = j;
+                    result.append(_alphabet.getElem(tempIndex).getElement());
+                    break;
+                }
+            }
+        }
+        return result.toString();
+    }
     private double getCodedValue(Fraction low, Fraction high){
         double result = 0;
         String Low = low.getValue()+"";
