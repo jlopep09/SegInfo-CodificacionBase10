@@ -73,12 +73,15 @@ public class ArithCoder {
         StringBuffer result = new StringBuffer();
         result.append(_alphabet.getElem(index).getElement());
         //get the complete decoded string
-        double tempCodeVal = code;
+        Fraction tempCodeVal = new Fraction(0,1);
+        tempCodeVal = tempCodeVal.makeItFraction(code);
+
         for(int i = 1; i< msgLength; i++){
-            tempCodeVal = (tempCodeVal-lowRanges.get(index).getValue())/(hightRanges.get(index).getValue()-lowRanges.get(index).getValue());
+            Fraction Denom = (hightRanges.get(index).diference(lowRanges.get(index)));
+            tempCodeVal = (tempCodeVal.diference(lowRanges.get(index))).multiply(new Fraction(Denom.getBotValue(), Denom.getTopValue()));
             int tempIndex = 0;
             for(int j = 0; j<lowRanges.size();j++){
-                if(tempCodeVal>lowRanges.get(j).getValue() && tempCodeVal < hightRanges.get(j).getValue()){
+                if(tempCodeVal.getValue() >lowRanges.get(j).getValue() && tempCodeVal.getValue() < hightRanges.get(j).getValue()){
                     tempIndex = j;
                     result.append(_alphabet.getElem(tempIndex).getElement());
                     break;
