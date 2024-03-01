@@ -23,8 +23,20 @@ public class Controlador {
         new MainWindow();
     }
     public ArithCoder prepareCoder(String elements, String probs) {
+        //Check if elements is valid and probs is empty bc is equiprob
+        if(elements.charAt(0)=='['&&elements.charAt(elements.length()-1)==']'&&probs.isBlank()){
+            int elementNum = elements.substring(1, elements.length()-1).length();
+            StringBuffer sb = new StringBuffer();
+            sb.append("[");
+            for(int i = 0; i<elementNum;i++){
+                sb.append("1 ");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            sb.append("]");
+            probs = sb.toString();
+        }
         //Check [format] and remove [ ]
-        if(elements.charAt(0)!='['||elements.charAt(elements.length()-1)!=']'||probs.charAt(0)!='['||probs.charAt(probs.length()-1)!=']'){
+        else if(elements.charAt(0)!='['||elements.charAt(elements.length()-1)!=']'||probs.charAt(0)!='['||probs.charAt(probs.length()-1)!=']'){
             //Not correct format
             JOptionPane.showMessageDialog(null,"Not correct input format, check steps 1 and 2");
         }
