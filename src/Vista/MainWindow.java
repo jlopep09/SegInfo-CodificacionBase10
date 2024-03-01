@@ -26,10 +26,12 @@ public class MainWindow extends JFrame{
             //Get String inputs
             String elements = elementInput.getText();
             String probs = probInput.getText();
-
+            System.out.println("Elements input: "+elements);
+            System.out.println("Probs input: "+elements);
             //Send the input to Controlador to prepare an ArithCoder
             Controlador controlador = Controlador.getInstance();
             ArithCoder arithCoder = controlador.prepareCoder(elements, probs);
+            System.out.println(arithCoder.toString());
 
             //Ask the user for the message to encode and show the result
             String texto = JOptionPane.showInputDialog(null, "Enter the message to be encoded:");

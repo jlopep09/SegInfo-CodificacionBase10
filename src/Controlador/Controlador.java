@@ -23,7 +23,7 @@ public class Controlador {
         new MainWindow();
     }
     public ArithCoder prepareCoder(String elements, String probs) {
-        //Check if elements is valid and probs is empty bc is equiprob
+        //Check if elements is valid and probs is empty bc is equally prob
         if(elements.charAt(0)=='['&&elements.charAt(elements.length()-1)==']'&&probs.isBlank()){
             int elementNum = elements.substring(1, elements.length()-1).length();
             StringBuffer sb = new StringBuffer();

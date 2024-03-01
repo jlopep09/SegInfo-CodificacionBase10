@@ -88,22 +88,55 @@ public class ArithCoder {
         return result.toString();
     }
     private double getCodedValue(Fraction low, Fraction high){
-        double result = 0;
+
+        //PREPARE STRINGS FROM FRACTION VALUES
         String Low = low.getValue()+"";
         String High = high.getValue()+"";
-        for(int i = 2; i<Low.length();i++){
-            if(Integer.parseInt(Low.charAt(i)+"")<Integer.parseInt(High.charAt(i)+"")){
-                if(High.length()>i+1){
-                    High = High.substring(0,i+1);
-                    return Double.parseDouble(High);
+        Low = Low.charAt(0)+""+ Low.substring(2);
+        High = High.charAt(0)+""+High.substring(2);
+        System.out.println("Low val: "+Low);
+        System.out.println("High val: "+High);
+        //ALGORITHM
+        //find first char that is not the same in both range values
+        int i = 0;
+        while( (i<(Low.length()))  &&  (i<(High.length()))  &&  (Low.charAt(i)==High.charAt(i)) ){
+            i++;
+        }
+        //check if any string is ending at this char
+        boolean noMoreLowValues = Low.length()-1==i;
+        boolean noMoreHighValues = High.length()-1==i;
+        if(High.equals("10")){
+            noMoreHighValues=true;
+        }
+        String result = "";
+        if(noMoreLowValues){
+            result = Low;
+        }else{
+            if(noMoreHighValues){
+                if(Integer.parseInt(Low.charAt(i)+"")+1!=Integer.parseInt(High.charAt(i)+"")){
+                    int newCharVal = Integer.parseInt(Low.charAt(i)+"")+1;
+                    Low = Low.substring(0, i) + newCharVal;
+                    result = Low;
                 }else{
-                    //todo comprobar este fragmento
-                    Low = Low.substring(0,i+1);
-                    return Double.parseDouble(Low);
+                    boolean found = false;
+                    i++;
+                    while( (i<(Low.length()))  &&  (!found) ){
+                        if(Low.charAt(i)!='9'){
+                            int newCharVal = Integer.parseInt(Low.charAt(i)+"")+1;
+                            Low = Low.substring(0, i) + newCharVal;
+                            found = true;
+                            result = Low;
+                        }
+                    }
                 }
+            }else{
+                result = High.substring(0,i)+High.charAt(i);
             }
         }
-        return Double.parseDouble(Low);
+
+        //tratar para poner de vuelta el .
+        result = result.charAt(0)+"."+ result.substring(1);
+        return Double.parseDouble(result);
     }
     private boolean checkValidMsg(String msg){
         boolean valid = true;
