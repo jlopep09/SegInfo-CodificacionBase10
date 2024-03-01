@@ -59,6 +59,29 @@ public class Fraction {
         }
         return gcd(b, a % b);
     }
+    /**
+     * Must be a number from range [0,1]
+     * **/
+    public Fraction makeItFraction(double num){
+        if(num>1){
+            throw new IllegalArgumentException("cant make fraction numbers greater than 1");
+        }
+        Fraction result = new Fraction(0,1);
+        if(num==0){
+            return result;
+        }else if(num==1){
+            return new Fraction(1,1);
+        }
+
+        String number = num+"";
+        number=number.substring(2);
+        long top = Long.valueOf(number);
+        double a = 10;
+        double b = number.length();
+        String bot = Math.pow(a,b)+"";
+        bot = bot.substring(0, bot.length()-2);
+        return new Fraction(top,Long.valueOf(bot));
+    }
     public String toString(){
         return "["+this._fracTop+"/"+this._fracBot+"]";
     }
