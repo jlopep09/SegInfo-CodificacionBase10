@@ -27,11 +27,16 @@ public class Fraction {
         _fracBot = fracBot;
     }
     public Fraction multiply(Fraction second){
+        this.simplify();
+        second.simplify();
+        System.out.println("Multiplicando "+this.toString()+second.toString());
         Fraction newFract = new Fraction(this._fracTop*second._fracTop, this._fracBot* second._fracBot);
         newFract.simplify();
         return newFract;
     }
     public Fraction diference(Fraction second) {
+        this.simplify();
+        second.simplify();
         long commonDenominator = this._fracBot * second._fracBot;
         long newTop = (this._fracTop * second._fracBot) - (second._fracTop * this._fracBot);
 
@@ -41,6 +46,8 @@ public class Fraction {
     }
 
     public Fraction addition(Fraction second) {
+        this.simplify();
+        second.simplify();
         long commonDenominator = this._fracBot * second._fracBot;
         long newTop = (this._fracTop * second._fracBot) + (second._fracTop * this._fracBot);
         Fraction newFract = new Fraction(newTop, commonDenominator);
@@ -48,6 +55,7 @@ public class Fraction {
         return newFract;
     }
     public void simplify() {
+
         long gcd = gcd(_fracTop, _fracBot);
         _fracTop /= gcd;
         _fracBot /= gcd;
@@ -76,11 +84,14 @@ public class Fraction {
         String number = num+"";
         number=number.substring(2);
         long top = Long.valueOf(number);
-        double a = 10;
-        double b = number.length();
-        String bot = Math.pow(a,b)+"";
-        bot = bot.substring(0, bot.length()-2);
-        return new Fraction(top,Long.valueOf(bot));
+        StringBuffer bot = new StringBuffer();
+        bot.append("1");
+        for(int i = 0; i<number.length();i++){
+            bot.append("0");
+        }
+        result = new Fraction(top,Long.valueOf(bot.toString()));
+        result.simplify();
+        return result;
     }
     public String toString(){
         return "["+this._fracTop+"/"+this._fracBot+"]";

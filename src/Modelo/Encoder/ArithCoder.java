@@ -75,15 +75,14 @@ public class ArithCoder {
         //get the complete decoded string
         Fraction tempCodeVal = new Fraction(0,1);
         tempCodeVal = tempCodeVal.makeItFraction(code);
-
+        System.out.println("1- "+result.toString());
         for(int i = 1; i< msgLength; i++){
             Fraction Denom = (hightRanges.get(index).diference(lowRanges.get(index)));
             tempCodeVal = (tempCodeVal.diference(lowRanges.get(index))).multiply(new Fraction(Denom.getBotValue(), Denom.getTopValue()));
-            int tempIndex = 0;
             for(int j = 0; j<lowRanges.size();j++){
                 if(tempCodeVal.getValue() >lowRanges.get(j).getValue() && tempCodeVal.getValue() < hightRanges.get(j).getValue()){
-                    tempIndex = j;
-                    result.append(_alphabet.getElem(tempIndex).getElement());
+                    result.append(_alphabet.getElem(j).getElement());
+                    index = j;
                     break;
                 }
             }
@@ -97,8 +96,8 @@ public class ArithCoder {
         String High = high.getValue()+"";
         Low = Low.charAt(0)+""+ Low.substring(2);
         High = High.charAt(0)+""+High.substring(2);
-        System.out.println("Low val: "+Low);
-        System.out.println("High val: "+High);
+        //System.out.println("Low val: "+Low);
+        //System.out.println("High val: "+High);
         //ALGORITHM
         //find first char that is not the same in both range values
         int i = 0;
