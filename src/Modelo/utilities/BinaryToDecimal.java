@@ -36,4 +36,33 @@ public class BinaryToDecimal {
 
         return result;
     }
+    public String getBinaryRepresentation(BigDecimal decimalValue) {
+        // Scale is the number of digits to the right of the decimal point.
+        int scale = decimalValue.scale();
+        // Unscaled value is the value of the BigDecimal without the scale.
+        BigInteger unscaledValue = decimalValue.unscaledValue();
+
+        StringBuilder binaryRepresentation = new StringBuilder();
+
+        // If the value is negative, add a '-' sign to the binary representation.
+        if (decimalValue.signum() == -1) {
+            binaryRepresentation.append("-");
+        }
+
+        // Convert the unscaled value to binary.
+        String unscaledBinary = unscaledValue.toString(2);
+        binaryRepresentation.append(unscaledBinary);
+
+        // Append zeros to the right to match the precision.
+        int diff = (scale * 10) - unscaledBinary.length(); // Multiply scale by 10 for precision
+        for (int i = 0; i < diff; i++) {
+            binaryRepresentation.append("0");
+        }
+
+        // Insert the decimal point at the appropriate position.
+        int decimalPosition = binaryRepresentation.length() - scale * 10; // Multiply scale by 10 for precision
+        binaryRepresentation.insert(decimalPosition, ".");
+
+        return binaryRepresentation.toString();
+    }
 }

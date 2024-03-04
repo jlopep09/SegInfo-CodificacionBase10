@@ -78,7 +78,7 @@ public class Controlador {
         if(mode == "Decimal"){
             result =  ""+arithCoder.encode(texto);
         }else if(mode == "Binary"){
-
+            result =  ""+arithCoder.encodeBinary(texto);
         }
         return result;
     }

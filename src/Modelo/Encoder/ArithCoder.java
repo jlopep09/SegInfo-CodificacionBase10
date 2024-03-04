@@ -1,6 +1,7 @@
 package Modelo.Encoder;
 
 import Modelo.Alphabet.Alphabet;
+import Modelo.utilities.BinaryToDecimal;
 import Modelo.utilities.Fraction;
 
 import java.math.BigDecimal;
@@ -57,6 +58,47 @@ public class ArithCoder {
         // VALUE FOR THIS MSG FROM THE RESULT RANGE
 
         double result = getCodedValue(Li, Hi);
+        return result;
+    }
+    public String encodeBinary(String msg){
+        //CHECK IF MSG IS VALID
+        if(!checkValidMsg(msg)){
+            throw new IllegalArgumentException("At least one message character is not valid with the alphabet of this encoder");
+        }
+        //GET INITIAL RANGES FOR CHARACTER 0
+        String actualElem = msg.charAt(0)+"";
+        Fraction Li = new Fraction(BigInteger.ZERO,BigInteger.ONE);
+        Fraction Hi = new Fraction(BigInteger.ONE,BigInteger.ONE);
+        for(int i = 0; i<_alphabet.size(); i++){
+            if(_alphabet.getElem(i).getElement().equals(actualElem)){
+                Li = lowRanges.get(i);
+                Hi = hightRanges.get(i);
+            }
+        }
+        //CHECK IF LENGTH == 1
+        if(msg.length()==1){
+            // VALUE FOR THIS 1 CHAR MSG FROM THE INITIAL RANGE
+
+            String result = getCodedValueBinary(Li, Hi);
+            return result;
+        }
+        //UPDATE RANGES FOR MSG LENGTH
+        for(int i = 1; i<msg.length();i++){
+            actualElem = msg.charAt(i)+"";
+            for(int j = 0; j<_alphabet.size(); j++){
+                if(_alphabet.getElem(j).getElement().equals(actualElem)){
+                    //System.out.println("Li antiguo: "+Li.toString()+" Hi antiguo: "+Hi.toString());
+                    Fraction distance = Hi.diference(Li);
+                    //System.out.println("dist"+ Hi.addition(new Fraction(8,49)).toString());
+                    Hi = Li.addition(distance.multiply(hightRanges.get(j)));
+                    Li = Li.addition(distance.multiply(lowRanges.get(j)));
+                    //System.out.println("Li actualizado: "+Li.toString()+" Hi actualizado: "+Hi.toString());
+                }
+            }
+        }
+        // VALUE FOR THIS MSG FROM THE RESULT RANGE
+
+        String result = getCodedValueBinary(Li, Hi);
         return result;
     }
     public String decode(BigDecimal code, int msgLength){
@@ -149,6 +191,53 @@ public class ArithCoder {
         //tratar para poner de vuelta el .
         result = result.charAt(0)+"."+ result.substring(1);
         return Double.parseDouble(result);
+    }
+    private String getCodedValueBinary(Fraction low, Fraction high){
+        BinaryToDecimal converter = new BinaryToDecimal();
+        //PREPARE STRINGS FROM FRACTION VALUES
+        String Low = converter.getBinaryRepresentation(low.getValue());
+        String High = converter.getBinaryRepresentation(high.getValue());
+
+        System.out.println("Low val: "+Low);
+        System.out.println("High val: "+High);
+        Low = Low.charAt(0)+""+ Low.substring(2);
+        High = High.charAt(0)+""+High.substring(2);
+        //System.out.println("Low val: "+Low);
+        //System.out.println("High val: "+High);
+        //ALGORITHM
+        //find first char that is not the same in both range values
+        int i = 0;
+        while( (i<(Low.length()))  &&  (i<(High.length()))  &&  (Low.charAt(i)==High.charAt(i)) ){
+            i++;
+        }
+        //check if any string is ending at this char
+        boolean noMoreLowValues = Low.length()-1==i;
+        boolean noMoreHighValues = High.length()-1==i;
+        if(High.equals("10")){
+            noMoreHighValues=true;
+        }
+        String result = "";
+        if(noMoreLowValues){
+            result = Low;
+        }else{
+            if(noMoreHighValues){//
+                StringBuilder sb = new StringBuilder();
+                sb.append(Low.substring(0,i));
+                sb.append(Low.charAt(i));
+                int j = i+1;
+                while(Low.charAt(j)!='0'){
+                    sb.append(Low.charAt(j));
+                    j++;
+                }
+                sb.append('1');
+                return sb.toString();
+
+            }else{
+                result = High.substring(0,i)+High.charAt(i);
+            }
+        }
+
+        return result;
     }
     private boolean checkValidMsg(String msg){
         boolean valid = true;
