@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.utilities.BinaryToDecimal;
 import Vista.MainWindow;
 import Modelo.Alphabet.Alphabet;
 import Modelo.Encoder.ArithCoder;
@@ -72,14 +73,24 @@ public class Controlador {
         }
         return null;
     }
-    public double encode(ArithCoder arithCoder, String texto){
-        return arithCoder.encode(texto);
+    public String encodeToString(ArithCoder arithCoder, String texto, String mode){
+        String result = "";
+        if(mode == "Decimal"){
+            result =  ""+arithCoder.encode(texto);
+        }else if(mode == "Binary"){
+
+        }
+        return result;
     }
-    public String encodeToString(ArithCoder arithCoder, String texto){
-        return ""+arithCoder.encode(texto);
-    }
-    public String decode(ArithCoder arithCoder, BigDecimal code, int length){
-        System.out.println("decodificame esta "+code.toString());
-        return arithCoder.decode(code,length);
+    public String decode(ArithCoder arithCoder, String code, int length, String mode){
+        String result = "";
+        if(mode == "Decimal"){
+            result =  ""+arithCoder.decode(new BigDecimal(code),length);
+        }else if(mode == "Binary"){
+            BinaryToDecimal translator = new BinaryToDecimal();
+            BigDecimal translated = new BigDecimal(translator.getDecimalValue(code).toString());
+            result =  ""+arithCoder.decode(translated,length);
+        }
+        return result;
     }
 }
