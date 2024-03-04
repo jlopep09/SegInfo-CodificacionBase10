@@ -121,6 +121,26 @@
               <toolTipText value="Example: [1 4 7 2]"/>
             </properties>
           </component>
+          <component id="b39d" class="javax.swing.JLabel">
+            <constraints/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <maximumSize width="500" height="23"/>
+              <minimumSize width="500" height="23"/>
+              <preferredSize width="500" height="23"/>
+              <text value="3. Select the type of number (base)"/>
+            </properties>
+          </component>
+          <component id="b68f7" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+            <constraints/>
+            <properties>
+              <model>
+                <item value="Decimal"/>
+                <item value="Binary"/>
+              </model>
+            </properties>
+          </component>
           <component id="81570" class="javax.swing.JSeparator">
             <constraints/>
             <properties>
@@ -137,7 +157,7 @@
               <maximumSize width="500" height="23"/>
               <minimumSize width="500" height="23"/>
               <preferredSize width="500" height="23"/>
-              <text value="3. Select Mode"/>
+              <text value="4. Select Mode"/>
             </properties>
           </component>
           <component id="793d4" class="javax.swing.JButton" binding="encodeButton" default-binding="true">

@@ -13,56 +13,75 @@ public class MainWindow extends JFrame{
     private JButton encodeButton;
     private JButton decodeButton;
     private JTextField probInput;
+    private JComboBox comboBox1;
 
     public MainWindow() {
+        setUpPanel();
+        addListeners();
+    }
+    private void setUpPanel(){
         setTitle("ArithCoder");
         setSize(500, 520);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        setLocationRelativeTo(null);
         setContentPane(panel1);
+        setVisible(true);
+    }
+    private void addListeners(){
+        //------------------------------------------------------------------
 
-        // Agregar componentes, paneles, etc., según sea necesario
-
-        setVisible(true); // Hacer visible la ventana
+        //ENCODE BUTTON
         encodeButton.addActionListener(e -> {
-            //Get String inputs
+            //INPUTS FROM GUI
             String elements = elementInput.getText();
             String probs = probInput.getText();
-            //System.out.println("Elements input: "+elements);
-            //System.out.println("Probs input: "+ probs);
+            String mode = comboBox1.getSelectedItem().toString();
+
             //Send the input to Controlador to prepare an ArithCoder
             Controlador controlador = Controlador.getInstance();
             try{
+                //PREPARE CODER
                 ArithCoder arithCoder = controlador.prepareCoder(elements, probs);
                 System.out.println(arithCoder.toString());
-                //Ask the user for the message to encode and show the result
+
+                //GET MSG AND EXECUTE APP
+
                 String texto = JOptionPane.showInputDialog(null, "Enter the message to be encoded:");
-                JOptionPane.showMessageDialog(null, "encoded value: " + controlador.encodeToString(arithCoder,texto));
+                JOptionPane.showMessageDialog(null, "encoded value: " + controlador.encodeToString(arithCoder,texto, mode));
+
+
+
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(this, "Error, check input fields");
-                ex.printStackTrace();
             }
         });
+
+        //------------------------------------------------------------------
+        //DECODE BUTTON
         decodeButton.addActionListener(e -> {
-            //Get String inputs
+            //INPUTS FROM GUI
             String elements = elementInput.getText();
             String probs = probInput.getText();
+            String mode = comboBox1.getSelectedItem().toString();
 
             //Send the input to Controlador to prepare an ArithCoder
             Controlador controlador = Controlador.getInstance();
-            ArithCoder arithCoder = controlador.prepareCoder(elements, probs);
+            try{
+                //PREPARE CODER
+                ArithCoder arithCoder = controlador.prepareCoder(elements, probs);
+                System.out.println(arithCoder.toString());
 
-            //Ask the user for the coded message
-            String texto = JOptionPane.showInputDialog(null, "Enter the message to be decoded:");
+                //GET MSG AND EXECUTE APP
+                String texto = JOptionPane.showInputDialog(null, "Enter the message to be decoded:");
+                String numeroStr = JOptionPane.showInputDialog(null, "Enter the message length:");
+                int numero = Integer.parseInt(numeroStr);
+                JOptionPane.showMessageDialog(null, "The decoded value is: "+ controlador.decode(arithCoder, texto, numero, mode));
 
-            //Ask the expected message length
-            String numeroStr = JOptionPane.showInputDialog(null, "Enter the message length:");
-            int numero = Integer.parseInt(numeroStr);
-
-            //Show the decoded message
-            JOptionPane.showMessageDialog(null, "The decoded value is: "+ controlador.decode(arithCoder, new BigDecimal(texto), numero));
-
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this, "Error, check input fields");
+            }
         });
+        //------------------------------------------------------------------
     }
 
 }
