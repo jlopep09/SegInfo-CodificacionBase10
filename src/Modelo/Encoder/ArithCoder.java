@@ -3,6 +3,8 @@ package Modelo.Encoder;
 import Modelo.Alphabet.Alphabet;
 import Modelo.utilities.Fraction;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class ArithCoder {
@@ -23,8 +25,8 @@ public class ArithCoder {
         }
         //GET INITIAL RANGES FOR CHARACTER 0
         String actualElem = msg.charAt(0)+"";
-        Fraction Li = new Fraction(0,1);
-        Fraction Hi = new Fraction(1,1);
+        Fraction Li = new Fraction(BigInteger.ZERO,BigInteger.ONE);
+        Fraction Hi = new Fraction(BigInteger.ONE,BigInteger.ONE);
         for(int i = 0; i<_alphabet.size(); i++){
             if(_alphabet.getElem(i).getElement().equals(actualElem)){
                 Li = lowRanges.get(i);
@@ -57,14 +59,14 @@ public class ArithCoder {
         double result = getCodedValue(Li, Hi);
         return result;
     }
-    public String decode(double code, int msgLength){ //todo sustituir .getValues por operaciones con fracciones
+    public String decode(BigDecimal code, int msgLength){
         if(msgLength<1){
             return "msg with length 0 or negative cant have a decoded value";
         }
         //find the index of the first decode msg character to get correct interval values from the range lists
         int index = 0;
         for(int i = 0; i<lowRanges.size();i++){
-            if(code>lowRanges.get(i).getValue() && code < hightRanges.get(i).getValue()){
+            if(code.compareTo(lowRanges.get(i).getValue()) > 0 && code.compareTo(hightRanges.get(i).getValue()) < 0){
                 index = i;
                 break;
             }
@@ -73,14 +75,14 @@ public class ArithCoder {
         StringBuffer result = new StringBuffer();
         result.append(_alphabet.getElem(index).getElement());
         //get the complete decoded string
-        Fraction tempCodeVal = new Fraction(0,1);
+        Fraction tempCodeVal = new Fraction(BigInteger.ZERO,BigInteger.ONE);
         tempCodeVal = tempCodeVal.makeItFraction(code);
-        System.out.println("1- "+result.toString());
+
         for(int i = 1; i< msgLength; i++){
             Fraction Denom = (hightRanges.get(index).diference(lowRanges.get(index)));
             tempCodeVal = (tempCodeVal.diference(lowRanges.get(index))).multiply(new Fraction(Denom.getBotValue(), Denom.getTopValue()));
             for(int j = 0; j<lowRanges.size();j++){
-                if(tempCodeVal.getValue() >lowRanges.get(j).getValue() && tempCodeVal.getValue() < hightRanges.get(j).getValue()){
+                if(tempCodeVal.getValue().compareTo(lowRanges.get(j).getValue()) > 0 && tempCodeVal.getValue().compareTo(hightRanges.get(j).getValue()) < 0){
                     result.append(_alphabet.getElem(j).getElement());
                     index = j;
                     break;
@@ -92,8 +94,16 @@ public class ArithCoder {
     private double getCodedValue(Fraction low, Fraction high){
 
         //PREPARE STRINGS FROM FRACTION VALUES
-        String Low = low.getValue()+"";
-        String High = high.getValue()+"";
+        String Low = low.getValue().toString();
+        String High = high.getValue().toString();
+        if(!Low.contains(".")){
+            Low.concat(".0");
+        }
+        if(!High.contains(".")){
+            Low.concat(".0");
+        }
+        System.out.println("Low val: "+Low);
+        System.out.println("High val: "+High);
         Low = Low.charAt(0)+""+ Low.substring(2);
         High = High.charAt(0)+""+High.substring(2);
         //System.out.println("Low val: "+Low);
@@ -156,11 +166,11 @@ public class ArithCoder {
         return valid;
     }
     private void setUpRanges(){
-        long currentValue = 0;
+        BigInteger currentValue = BigInteger.ZERO;
         for(int i = 0; i < _alphabet.size(); i++){
             Fraction lowTemp = new Fraction(currentValue,_alphabet.getElem(i).getFracBot());
             lowRanges.add(lowTemp);
-            currentValue += _alphabet.getElem(i).getFracTop();
+            currentValue = currentValue.add(_alphabet.getElem(i).getFracTop());
             Fraction hightTemp = new Fraction(currentValue,_alphabet.getElem(i).getFracBot());
             hightRanges.add(hightTemp);
         }

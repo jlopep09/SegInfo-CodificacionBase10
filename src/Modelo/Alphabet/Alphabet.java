@@ -31,12 +31,18 @@ public class Alphabet {
 
     }
     private void setAlphabetProbs(ArrayList<Long> fracTop, long botValue){
+        System.out.println(fracTop.getFirst());
         if(fracTop.size() != alphabet.size()){
             System.out.printf("elements prob list and alphabet size must be the same");
             throw new IllegalArgumentException("alphabet and element probs list sizes not match");
         }
         for(int i = 0; i < alphabet.size(); i++){
+            System.out.println("antes "+alphabet.get(i).getProb().toString());
+            System.out.println("valor "+ fracTop.get(i) + " " + botValue);
             alphabet.get(i).setProb(fracTop.get(i), botValue);
+            System.out.println("despues "+alphabet.get(i).getProb().toString() + "    "+alphabet.get(i).getFracTop().toString());
+
+
         }
     }
     private void setAlphabetProbs(ArrayList<Long> fracTop, ArrayList<Long> fracBot){

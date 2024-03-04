@@ -5,6 +5,8 @@ import Modelo.Alphabet.Alphabet;
 import Modelo.Encoder.ArithCoder;
 
 import javax.swing.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Controlador {
@@ -64,6 +66,7 @@ public class Controlador {
             alphabet.setAlphabetElements(elemList);
             alphabet.setAlphabetProportion(propList);
             return new ArithCoder(alphabet);
+
         }catch (IllegalArgumentException ex){
             JOptionPane.showMessageDialog(null,"modelo.Alphabet and probs number of elements are different, check steps 1 and 2");
         }
@@ -75,7 +78,8 @@ public class Controlador {
     public String encodeToString(ArithCoder arithCoder, String texto){
         return ""+arithCoder.encode(texto);
     }
-    public String decode(ArithCoder arithCoder, double code, int length){
+    public String decode(ArithCoder arithCoder, BigDecimal code, int length){
+        System.out.println("decodificame esta "+code.toString());
         return arithCoder.decode(code,length);
     }
 }

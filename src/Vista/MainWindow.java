@@ -5,6 +5,8 @@ import Modelo.Encoder.ArithCoder;
 import javax.swing.*;
 import Controlador.Controlador;
 
+import java.math.BigDecimal;
+
 public class MainWindow extends JFrame{
     private JPanel panel1;
     private JTextField elementInput;
@@ -38,6 +40,7 @@ public class MainWindow extends JFrame{
                 JOptionPane.showMessageDialog(null, "encoded value: " + controlador.encodeToString(arithCoder,texto));
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(this, "Error, check input fields");
+                ex.printStackTrace();
             }
         });
         decodeButton.addActionListener(e -> {
@@ -50,14 +53,14 @@ public class MainWindow extends JFrame{
             ArithCoder arithCoder = controlador.prepareCoder(elements, probs);
 
             //Ask the user for the coded message
-            String texto = JOptionPane.showInputDialog(null, "Enter the message to be encoded:");
+            String texto = JOptionPane.showInputDialog(null, "Enter the message to be decoded:");
 
             //Ask the expected message length
             String numeroStr = JOptionPane.showInputDialog(null, "Enter the message length:");
             int numero = Integer.parseInt(numeroStr);
 
             //Show the decoded message
-            JOptionPane.showMessageDialog(null, "The decoded value is: "+ controlador.decode(arithCoder, Double.parseDouble(texto), numero));
+            JOptionPane.showMessageDialog(null, "The decoded value is: "+ controlador.decode(arithCoder, new BigDecimal(texto), numero));
 
         });
     }

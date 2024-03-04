@@ -1,100 +1,85 @@
 package Modelo.utilities;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+
 public class Fraction {
-    private long _fracTop, _fracBot;
-    public Fraction(long fracTop,long fracBot){
+    private BigInteger _fracTop, _fracBot;
+    private int precision = 100;
+    public Fraction(BigInteger fracTop,BigInteger fracBot){
         _fracTop = fracTop;
         _fracBot = fracBot;
     }
-    public double getValue(){
-        return (double) _fracTop /_fracBot;
+    public BigDecimal getValue(){
+        BigDecimal fracTop = new BigDecimal(_fracTop);
+        BigDecimal fracBot = new BigDecimal(_fracBot);
+        return fracTop.divide(fracBot, precision, RoundingMode.HALF_UP);
     }
     //--------------------------GET/SET------------------------------
-    public long getTopValue(){
+    public BigInteger getTopValue(){
         return _fracTop;
     }
-    public long getBotValue(){
+    public BigInteger getBotValue(){
         return _fracBot;
     }
-    public void setTopValue(long fracTop){
+    public void setTopValue(BigInteger fracTop){
         _fracTop = fracTop;
     }
-    public void setBotValue(long fracBot){
-        if(fracBot == 0 ){
+    public void setBotValue(BigInteger fracBot){
+        if(fracBot.compareTo(BigInteger.ZERO) == 0 ){
             System.out.println("0 is not a valid fraction bottom number");
             throw new IllegalArgumentException("0 is not a valid fraction bottom number");
         }
         _fracBot = fracBot;
     }
     public Fraction multiply(Fraction second){
-        this.simplify();
-        second.simplify();
-        System.out.println("Multiplicando "+this.toString()+second.toString());
-        Fraction newFract = new Fraction(this._fracTop*second._fracTop, this._fracBot* second._fracBot);
-        newFract.simplify();
+        Fraction newFract = new Fraction(this._fracTop.multiply(second._fracTop), this._fracBot.multiply(second._fracBot));
         return newFract;
     }
     public Fraction diference(Fraction second) {
-        this.simplify();
-        second.simplify();
-        long commonDenominator = this._fracBot * second._fracBot;
-        long newTop = (this._fracTop * second._fracBot) - (second._fracTop * this._fracBot);
-
+        BigInteger commonDenominator = this._fracBot.multiply(second._fracBot);
+        BigInteger newTop = (this._fracTop.multiply(second._fracBot)).subtract((second._fracTop.multiply(this._fracBot)));
         Fraction newFract = new Fraction(newTop, commonDenominator);
-        newFract.simplify();
         return newFract;
     }
 
     public Fraction addition(Fraction second) {
-        this.simplify();
-        second.simplify();
-        long commonDenominator = this._fracBot * second._fracBot;
-        long newTop = (this._fracTop * second._fracBot) + (second._fracTop * this._fracBot);
+        BigInteger commonDenominator = this._fracBot.multiply(second._fracBot);
+        BigInteger newTop = (this._fracTop.multiply(second._fracBot)).add((second._fracTop.multiply(this._fracBot)));
         Fraction newFract = new Fraction(newTop, commonDenominator);
-        newFract.simplify();
         return newFract;
-    }
-    public void simplify() {
-
-        long gcd = gcd(_fracTop, _fracBot);
-        _fracTop /= gcd;
-        _fracBot /= gcd;
-    }
-
-    private long gcd(long a, long b) {
-        if (b == 0) {
-            return a;
-        }
-        return gcd(b, a % b);
     }
     /**
      * Must be a number from range [0,1]
      * **/
-    public Fraction makeItFraction(double num){
-        if(num>1){
+    public Fraction makeItFraction(BigDecimal num){
+        if(num.compareTo(BigDecimal.ONE) > 0 ){
             throw new IllegalArgumentException("cant make fraction numbers greater than 1");
         }
-        Fraction result = new Fraction(0,1);
-        if(num==0){
+        Fraction result = new Fraction(BigInteger.ZERO,BigInteger.ONE);
+        if(num.compareTo(BigDecimal.ZERO) == 0){
             return result;
-        }else if(num==1){
-            return new Fraction(1,1);
+        }else if(num.compareTo(BigDecimal.ONE)==1){
+            return new Fraction(BigInteger.ONE,BigInteger.ONE);
         }
-
-        String number = num+"";
+        String number = num.toString();
+        if(!number.contains(".")){
+            number.concat(".0");
+        }
         number=number.substring(2);
-        long top = Long.valueOf(number);
+
+        BigInteger top = new BigInteger(number);
         StringBuffer bot = new StringBuffer();
         bot.append("1");
         for(int i = 0; i<number.length();i++){
             bot.append("0");
         }
-        result = new Fraction(top,Long.valueOf(bot.toString()));
-        result.simplify();
+        result = new Fraction(top,new BigInteger(bot.toString()));
         return result;
     }
     public String toString(){
-        return "["+this._fracTop+"/"+this._fracBot+"]";
+        return "["+this._fracTop.toString()+"/"+this._fracBot.toString()+"]";
     }
 
 }
