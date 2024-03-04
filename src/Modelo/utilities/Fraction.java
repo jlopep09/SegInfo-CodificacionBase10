@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 
 public class Fraction {
     private BigInteger _fracTop, _fracBot;
-    private int precision = 100;
+    private int precision = 40;
     public Fraction(BigInteger fracTop,BigInteger fracBot){
         _fracTop = fracTop;
         _fracBot = fracBot;
