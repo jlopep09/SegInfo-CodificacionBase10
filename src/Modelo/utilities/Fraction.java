@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 
 public class Fraction {
     private BigInteger _fracTop, _fracBot;
-    private int precision = 40;
+    private int precision = 100;
     public Fraction(BigInteger fracTop,BigInteger fracBot){
         _fracTop = fracTop;
         _fracBot = fracBot;
@@ -38,11 +38,23 @@ public class Fraction {
         return newFract;
     }
     public Fraction diference(Fraction second) {
+        // Encuentra el denominador común
         BigInteger commonDenominator = this._fracBot.multiply(second._fracBot);
-        BigInteger newTop = (this._fracTop.multiply(second._fracBot)).subtract((second._fracTop.multiply(this._fracBot)));
-        Fraction newFract = new Fraction(newTop, commonDenominator);
-        return newFract;
+
+        // Calcula los nuevos numeradores
+        BigInteger newTop1 = this._fracTop.multiply(second._fracBot);
+        BigInteger newTop2 = second._fracTop.multiply(this._fracBot);
+
+        // Encuentra la diferencia
+        BigInteger newTop = newTop1.subtract(newTop2);
+
+        // Realiza la división manualmente para controlar la precisión
+        BigDecimal result = new BigDecimal(newTop).divide(new BigDecimal(commonDenominator), precision, RoundingMode.HALF_UP);
+
+        // Crea y devuelve la nueva fracción
+        return new Fraction(result.unscaledValue(), BigInteger.TEN.pow(precision));
     }
+
 
     public Fraction addition(Fraction second) {
         BigInteger commonDenominator = this._fracBot.multiply(second._fracBot);

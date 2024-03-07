@@ -41,16 +41,23 @@ public class ArithCoder {
             double result = getCodedValue(Li, Hi);
             return result;
         }
+        System.out.println("EMPIEZA A UPDATERA RANGOS");
         //UPDATE RANGES FOR MSG LENGTH
         for(int i = 1; i<msg.length();i++){
+            System.out.println("ITER MSG CHAR");
             actualElem = msg.charAt(i)+"";
             for(int j = 0; j<_alphabet.size(); j++){
+                System.out.println("1");
                 if(_alphabet.getElem(j).getElement().equals(actualElem)){
+                    System.out.println("2");
                     //System.out.println("Li antiguo: "+Li.toString()+" Hi antiguo: "+Hi.toString());
                     Fraction distance = Hi.diference(Li);
                     //System.out.println("dist"+ Hi.addition(new Fraction(8,49)).toString());
+                    System.out.println("3");
                     Hi = Li.addition(distance.multiply(hightRanges.get(j)));
+                    System.out.println("4");
                     Li = Li.addition(distance.multiply(lowRanges.get(j)));
+                    System.out.println("5");
                     //System.out.println("Li actualizado: "+Li.toString()+" Hi actualizado: "+Hi.toString());
                 }
             }
@@ -82,8 +89,10 @@ public class ArithCoder {
             String result = getCodedValueBinary(Li, Hi);
             return result;
         }
+        System.out.println("EMPIEZA A UPDATERA RANGOS");
         //UPDATE RANGES FOR MSG LENGTH
         for(int i = 1; i<msg.length();i++){
+            System.out.println("ITER CARACTER");
             actualElem = msg.charAt(i)+"";
             for(int j = 0; j<_alphabet.size(); j++){
                 if(_alphabet.getElem(j).getElement().equals(actualElem)){
@@ -97,7 +106,7 @@ public class ArithCoder {
             }
         }
         // VALUE FOR THIS MSG FROM THE RESULT RANGE
-
+        System.out.println("asfasdfasfsd ");
         String result = getCodedValueBinary(Li, Hi);
         return result;
     }
@@ -113,19 +122,24 @@ public class ArithCoder {
                 break;
             }
         }
+        System.out.println("index "+index);
         //get first string value
         StringBuffer result = new StringBuffer();
         result.append(_alphabet.getElem(index).getElement());
+        System.out.println("resultado "+result.toString());
         //get the complete decoded string
         Fraction tempCodeVal = new Fraction(BigInteger.ZERO,BigInteger.ONE);
         tempCodeVal = tempCodeVal.makeItFraction(code);
+        System.out.println("codigo en fraccion "+tempCodeVal.toString()                                             );
 
         for(int i = 1; i< msgLength; i++){
             Fraction Denom = (hightRanges.get(index).diference(lowRanges.get(index)));
             tempCodeVal = (tempCodeVal.diference(lowRanges.get(index))).multiply(new Fraction(Denom.getBotValue(), Denom.getTopValue()));
+            System.out.println("temp en fraccion "+tempCodeVal.toString());
             for(int j = 0; j<lowRanges.size();j++){
                 if(tempCodeVal.getValue().compareTo(lowRanges.get(j).getValue()) > 0 && tempCodeVal.getValue().compareTo(hightRanges.get(j).getValue()) < 0){
                     result.append(_alphabet.getElem(j).getElement());
+                    System.out.println("temp res"+result);
                     index = j;
                     break;
                 }

@@ -89,6 +89,7 @@ public class Controlador {
         }else if(mode == "Binary"){
             BinaryToDecimal translator = new BinaryToDecimal();
             BigDecimal translated = new BigDecimal(translator.getDecimalValue(code).toString());
+            System.out.println(translated.toString());
             result =  ""+arithCoder.decode(translated,length);
         }
         return result;

@@ -31,7 +31,7 @@ public class Alphabet {
 
     }
     private void setAlphabetProbs(ArrayList<Long> fracTop, long botValue){
-        System.out.println(fracTop.getFirst());
+        //System.out.println(fracTop.getFirst());
         if(fracTop.size() != alphabet.size()){
             System.out.printf("elements prob list and alphabet size must be the same");
             throw new IllegalArgumentException("alphabet and element probs list sizes not match");
